@@ -1,6 +1,5 @@
 /** @format */
 
-const { $where } = require("../db/schema/product");
 const Product = require("../db/schema/product");
 
 const getListProduct = async function (req, res, next) {

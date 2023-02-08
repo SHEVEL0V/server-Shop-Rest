@@ -16,11 +16,12 @@ const addBasket = async function (req, res, next) {
 
 const deleteBasket = async function (req, res, next) {
   const { id } = req.params;
-  const response = Basket.findByIdAndRemove(id);
+
+  const response = await Basket.findByIdAndRemove(id);
   if (!response) {
     throw RequestError(404);
   }
-  return response;
+  return res.json({ message: "product deleted", response });
 };
 
 module.exports = { getBasket, addBasket, deleteBasket };

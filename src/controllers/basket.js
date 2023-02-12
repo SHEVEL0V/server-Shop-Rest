@@ -7,12 +7,28 @@ const getBasket = async function (req, res, next) {
   const data = await Basket.find().populate("product");
   res.status(200).json(data);
 };
+//-------------------------------------------------------------
+//-------------------------------------------------------------
 
 const addBasket = async function (req, res, next) {
   const newProduct = new Basket(req.body);
   await newProduct.save();
   return res.status(200).json(newProduct);
 };
+//-------------------------------------------------------------
+//-------------------------------------------------------------
+
+const updateBasket = async function (req, res, next) {
+  const { id } = req.params;
+
+  const response = await Basket.findByIdAndUpdate(id, req.body);
+  if (!response) {
+    throw RequestError(404);
+  }
+  return res.status(200).json({ message: "qty update", response });
+};
+//-------------------------------------------------------------
+//-------------------------------------------------------------
 
 const deleteBasket = async function (req, res, next) {
   const { id } = req.params;
@@ -24,4 +40,4 @@ const deleteBasket = async function (req, res, next) {
   return res.json({ message: "product deleted", response });
 };
 
-module.exports = { getBasket, addBasket, deleteBasket };
+module.exports = { getBasket, addBasket, deleteBasket, updateBasket };

@@ -9,6 +9,7 @@ const basketSchema = new mongoose.Schema(
       require: true,
       unique: true,
     },
+    qty: { type: Number, require: true },
   },
   { versionKey: false, timestamps: true }
 );

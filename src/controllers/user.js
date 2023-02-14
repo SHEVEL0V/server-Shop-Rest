@@ -7,7 +7,7 @@ const RequestError = require("../helpers/error");
 
 //-------------------------------------------------------------
 
-const registerUser = async function (req, res, next) {
+const registerUser = async (req, res, next) => {
   const { password: pass, name, email } = req.body;
 
   const password = await bcrypt.hash(pass, 10);
@@ -17,7 +17,25 @@ const registerUser = async function (req, res, next) {
 
   const token = jwt.sign({ email }, process.env.JWT_SECRET);
 
-  return res.status(200).json({ newUser, token });
+  return res.json({ newUser, token });
 };
 
-module.exports = { registerUser };
+//-------------------------------------------------------------
+
+const loginUser = async (req, res, next) => {
+  const { password, email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw RequestError(401, `No user with email: ${email} found`);
+  }
+  if (!(await bcrypt.compare(password, user.password))) {
+    throw RequestError(401, `password:${password} is wrong  `);
+  }
+  const token = jwt.sign({ email }, process.env.JWT_SECRET);
+
+  return res.json({ user, token });
+};
+
+module.exports = { registerUser, loginUser };

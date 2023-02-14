@@ -4,13 +4,13 @@ const jwt = require("jsonwebtoken");
 const RequestError = require("../helpers/error");
 
 const auth = (req, res, next) => {
-  const { auth } = req.headers;
+  const { authorization } = req.headers;
 
-  if (!auth) {
-    throw RequestError(401, "Please , provide Header: 'auth' ");
+  if (!authorization) {
+    throw RequestError(401, "Please , provide Header: 'authorization' ");
   }
 
-  const [type, token] = auth.split(" ");
+  const [type, token] = authorization.split(" ");
 
   if (!token) {
     throw RequestError(401, "Please , provide a token");

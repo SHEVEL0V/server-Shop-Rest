@@ -22,5 +22,13 @@ const getListProduct = async function (req, res, next) {
 
   res.status(200).json({ products, count, maxPrice, minPrice });
 };
+//-----------------------------------------------------------------------
 
-module.exports = { getListProduct };
+const getProductById = async function (req, res, next) {
+  const { id } = req.params;
+
+  const products = await Product.findById(id);
+
+  res.status(200).json(products);
+};
+module.exports = { getListProduct, getProductById };

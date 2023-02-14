@@ -18,18 +18,16 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    token: String,
+
     avatarURL: {
       type: String,
-      required: [true],
     },
     verify: {
       type: Boolean,
       default: false,
     },
-    verificationToken: {
+    token: {
       type: String,
-      required: [true, "Verify token is required"],
     },
   },
   { versionKey: false, timestamps: true }

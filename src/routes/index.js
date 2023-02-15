@@ -8,6 +8,7 @@ const {
   getBasket,
   updateBasket,
   deleteBasket,
+  deleteBasketAll,
 } = require("../controllers/basket");
 const { registerUser, loginUser } = require("../controllers/user");
 
@@ -25,6 +26,7 @@ router.get("/basket", auth, wrap(getBasket));
 router.post("/basket", auth, wrap(addBasket));
 router.put("/basket/:id", auth, wrap(updateBasket));
 router.delete("/basket/:id", auth, wrap(deleteBasket));
+router.delete("/basket/all/:id", auth, wrap(deleteBasketAll));
 
 //----------------------------------------------------------
 router.post("/user/auth", wrap(registerUser));

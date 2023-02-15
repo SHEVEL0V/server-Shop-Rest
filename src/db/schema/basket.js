@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const basketSchema = new mongoose.Schema(
   {
+    user: {
+      ref: "user",
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+    },
     product: {
       ref: "products",
       type: mongoose.Schema.Types.ObjectId,

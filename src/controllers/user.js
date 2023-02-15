@@ -26,7 +26,6 @@ const loginUser = async (req, res, next) => {
   const { password, email } = req.body;
 
   const user = await User.findOne({ email });
-
   if (!user) {
     throw RequestError(401, `No user with email: ${email} found`);
   }

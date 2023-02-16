@@ -12,7 +12,6 @@ const basketSchema = new mongoose.Schema(
       ref: "products",
       type: mongoose.Schema.Types.ObjectId,
       require: true,
-      unique: true,
     },
     qty: { type: Number, require: true },
   },

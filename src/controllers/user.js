@@ -9,23 +9,24 @@ const RequestError = require("../helpers/error");
 //-------REGISTER----------------------------------------------
 
 const registerUser = async (req, res, next) => {
-  const { password: pass, email, _id: id } = req.body;
+  const { password, email } = req.body;
 
-  const password = await bcrypt.hash(pass, 10);
+  const passwordBcrypt = await bcrypt.hash(password, 10);
 
-  const newUser = new User({ ...req.body, password });
+  const newUser = new User({ ...req.body, password: passwordBcrypt });
   await newUser.save();
 
-  const token = jwt.sign({ email }, process.env.JWT_SECRET);
+  const id = newUser._id;
+  const token = jwt.sign({ id }, process.env.JWT_SECRET);
 
-  return res.json({ user: newUser._id, token });
+  return res.json({ token });
 };
 
 //-------------------------------------------------------------
 //--------LOGIN------------------------------------------------
 
 const loginUser = async (req, res, next) => {
-  const { password, email, _id: id } = req.body;
+  const { password, email } = req.body;
 
   const user = await User.findOne({ email });
   if (!user) {
@@ -34,9 +35,11 @@ const loginUser = async (req, res, next) => {
   if (!(await bcrypt.compare(password, user.password))) {
     throw RequestError(401, `password:${password} is wrong  `);
   }
-  const token = jwt.sign({ email, id }, process.env.JWT_SECRET);
 
-  return res.json({ user: user._id, token });
+  const id = user._id;
+  const token = jwt.sign({ id }, process.env.JWT_SECRET);
+
+  return res.json({ token });
 };
 
 module.exports = { registerUser, loginUser };

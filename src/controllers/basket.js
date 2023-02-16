@@ -6,20 +6,21 @@ const RequestError = require("../helpers/error");
 //-------------------------------------------------------------
 //----------GET------------------------------------------------
 const getBasket = async function (req, res, next) {
-  const { query } = req;
-
-  if (!query) {
-    throw RequestError(401, "No user params !");
+  const { id } = req.user;
+  if (!id) {
+    throw RequestError(401, "No user id !");
   }
 
-  const data = await Basket.find(query).populate("product");
+  const data = await Basket.find({ user: id }).populate("product");
   res.status(200).json(data);
 };
 //-------------------------------------------------------------
 //----------ADD------------------------------------------------
 
 const addBasket = async function (req, res, next) {
-  const newProduct = new Basket(req.body);
+  const { id } = req.user;
+
+  const newProduct = new Basket({ ...req.body, user: id });
   await newProduct.save();
   return res.status(200).json(newProduct);
 };
@@ -51,7 +52,7 @@ const deleteBasket = async function (req, res, next) {
 //-------------------------------------------------------------
 //------------DELETE ALL---------------------------------------
 const deleteBasketAll = async function (req, res, next) {
-  const { id } = req.params;
+  const { id } = req.user;
 
   const response = await Basket.deleteMany({ user: id });
 

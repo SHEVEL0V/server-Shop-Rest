@@ -38,4 +38,29 @@ const getProductById = async function (req, res, next) {
   res.json(products);
 };
 
-module.exports = { getListProduct, getProductById };
+//-----------------------------------------------------------------------
+//--------ADD------------------------------------------------------------
+const addProduct = async function (req, res, next) {
+  const newProduct = new Product({ ...req.body });
+  await newProduct.save();
+  return res.status(200).json(newProduct);
+};
+
+//------------DELETE ALL---------------------------------------
+const deleteProductsAll = async function (req, res, next) {
+  const response = req.body.remove.map(
+    async (id) => await Product.findByIdAndDelete(id)
+  );
+
+  if (!response) {
+    throw RequestError(404);
+  }
+  return res.json({ message: "products deleted" });
+};
+
+module.exports = {
+  getListProduct,
+  getProductById,
+  addProduct,
+  deleteProductsAll,
+};

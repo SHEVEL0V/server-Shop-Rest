@@ -2,7 +2,14 @@
 
 const express = require("express");
 
-const { getListProduct, getProductById } = require("../controllers/product");
+const {
+  getListProduct,
+  getProductById,
+  addProduct,
+  deleteProductsAll,
+} = require("../controllers/product");
+const { addImage } = require("../controllers/image");
+
 const {
   addBasket,
   getBasket,
@@ -14,12 +21,16 @@ const { registerUser, loginUser } = require("../controllers/user");
 
 const wrap = require("../helpers/wrapper");
 const auth = require("../middlewares/auth");
+const multer = require("../middlewares/upload");
 
 const router = express.Router();
 
 //---------------------------------------------------------
 router.get("/products", wrap(getListProduct));
 router.get("/products/:id", wrap(getProductById));
+router.post("/image", multer.single("image"), wrap(addImage));
+router.post("/products", auth, wrap(addProduct));
+router.put("/products/all", auth, wrap(deleteProductsAll));
 
 //----------------------------------------------------------
 router.get("/basket", auth, wrap(getBasket));

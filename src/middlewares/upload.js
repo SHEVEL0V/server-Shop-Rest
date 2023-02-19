@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     cd(null, tempDir);
   },
   filename: (req, file, cd) => {
-    cd(null, file.originalname);
+    cd(null, uuidv4() + file.originalname);
   },
   limits: { fieldSize: 2048 },
 });

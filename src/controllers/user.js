@@ -36,8 +36,8 @@ const loginUser = async (req, res, next) => {
     throw RequestError(401, `password:${password} is wrong  `);
   }
 
-  const id = user._id;
-  const token = jwt.sign({ id }, process.env.JWT_SECRET);
+  const { id_: id, role } = user;
+  const token = jwt.sign({ id, role }, process.env.JWT_SECRET);
 
   return res.json({ token });
 };

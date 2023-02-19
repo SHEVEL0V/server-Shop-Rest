@@ -1,12 +1,16 @@
 /** @format */
 
+const { uploadFile } = require("../upload");
+
 const addImage = async function (req, res, next) {
-  const { path } = req.file;
+  const { path, filename } = req.file;
   if (!path) {
-    throw RequestError(404);
+    throw RequestError(404, "absent file");
   }
-  console.log(req.file);
-  return res.status(200).json({ path });
+
+  const { mediaLink } = await uploadFile(path, filename);
+
+  return res.json({ url: mediaLink });
 };
 
 module.exports = { addImage };

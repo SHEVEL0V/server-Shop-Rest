@@ -10,13 +10,7 @@ const {
 } = require("../controllers/product");
 const { addImage } = require("../controllers/image");
 
-const {
-  addBasket,
-  getBasket,
-  updateBasket,
-  deleteBasket,
-  deleteBasketAll,
-} = require("../controllers/basket");
+const { getOrder, addOrder } = require("../controllers/orders");
 const { registerUser, loginUser } = require("../controllers/user");
 
 const wrap = require("../helpers/wrapper");
@@ -33,11 +27,11 @@ router.post("/products", auth, wrap(addProduct));
 router.put("/products/all", auth, wrap(deleteProductsAll));
 
 //----------------------------------------------------------
-router.get("/basket", auth, wrap(getBasket));
-router.post("/basket", auth, wrap(addBasket));
-router.put("/basket/:id", auth, wrap(updateBasket));
-router.delete("/basket/:id", auth, wrap(deleteBasket));
-router.delete("/basket/all/:id", auth, wrap(deleteBasketAll));
+router.get("/order", auth, wrap(getOrder));
+router.post("/order", auth, wrap(addOrder));
+// router.put("/basket/:id", auth, wrap(updateBasket));
+// router.delete("/basket/:id", auth, wrap(deleteBasket));
+// router.delete("/basket/all/:id", auth, wrap(deleteBasketAll));
 
 //----------------------------------------------------------
 router.post("/user/auth", wrap(registerUser));

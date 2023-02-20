@@ -3,15 +3,19 @@ const fs = require("fs/promises");
 const { authModel } = require("./auth");
 const { Storage } = require("@google-cloud/storage");
 
-const uploadFile = async (tempUpload, filename) => {
+const uploadFile = async (path, filename) => {
   const jwt = await authModel();
   const bucketName = "buket-image";
   const storage = new Storage({ authClient: jwt });
   const options = { destination: filename };
 
-  const [File] = await storage.bucket(bucketName).upload(tempUpload, options);
+  if (!path) {
+    throw RequestError(404, "Absent file");
+  }
 
-  fs.unlink(tempUpload);
+  const [File] = await storage.bucket(bucketName).upload(path, options);
+
+  fs.unlink(path);
 
   if (!File) {
     throw new Error("Error upload file");

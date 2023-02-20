@@ -1,7 +1,6 @@
 /** @format */
 
 const Orders = require("../db/schema/orders");
-const RequestError = require("../helpers/error");
 
 //-------------------------------------------------------------
 //----------GET------------------------------------------------
@@ -18,7 +17,9 @@ const addOrder = async function (req, res, next) {
   const { orders } = req.body;
 
   const newProduct = new Orders({ orders, user: id });
+
   await newProduct.save();
+
   return res.status(200).json(newProduct);
 };
 // //-------------------------------------------------------------

@@ -14,9 +14,9 @@ const { getOrder, addOrder } = require("../controllers/orders");
 const { registerUser, loginUser } = require("../controllers/user");
 
 const wrap = require("../helpers/wrapper");
-const auth = require("../middlewares/auth");
-const authAdmin = require("../middlewares/authAdmin");
-const multer = require("../middlewares/upload");
+const auth = require("../middleware/auth");
+const authAdmin = require("../middleware/authAdmin");
+const multer = require("../middleware/upload");
 
 const router = express.Router();
 

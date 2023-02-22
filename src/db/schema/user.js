@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
     name: String,
+    telephone: {
+      type: String,
+      required: [true, "Set telephone for user"],
+      RegExp: /[+0-9]/,
+      minLength: 6,
+    },
     password: {
       type: String,
       required: [true, "Set password for user"],

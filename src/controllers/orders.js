@@ -22,18 +22,22 @@ const addOrder = async function (req, res, next) {
 
   return res.status(200).json(newProduct);
 };
-// //-------------------------------------------------------------
-// //-----------UPDATE--------------------------------------------
+//-------------------------------------------------------------
+//-----------UPDATE--------------------------------------------
 
-// const updateBasket = async function (req, res, next) {
-//   const { id } = req.params;
+const updateOrder = async function (req, res, next) {
+  const { id } = req.params;
+  const { status } = req.body;
+  console.log(req.body);
 
-//   const response = await Basket.findByIdAndUpdate(id, req.body);
-//   if (!response) {
-//     throw RequestError(404);
-//   }
-//   return res.status(200).json({ message: "qty update", response });
-// };
+  const response = await Orders.findByIdAndUpdate(id, { $set: { status } });
+
+  if (!response) {
+    throw RequestError(404);
+  }
+
+  return res.status(200).json({ message: "Status update", response });
+};
 // //-------------------------------------------------------------
 // //------------DELETE-------------------------------------------
 
@@ -63,7 +67,5 @@ const addOrder = async function (req, res, next) {
 module.exports = {
   getOrder,
   addOrder,
-  // deleteBasket,
-  // updateBasket,
-  // deleteBasketAll,
+  updateOrder,
 };

@@ -17,13 +17,16 @@ const getListProduct = async function (req, res, next) {
   const min = Number(price?.split("-")[0]) || minPrice;
   const max = Number(price?.split("-")[1]) || maxPrice;
 
-  const products = await Product.find({
-    price: { $gte: min, $lte: max },
-  })
+  const products = await Product.find(
+    {
+      price: { $gte: min, $lte: max },
+    },
+    ["-createdAt", "-updatedAt "]
+  )
     .find(type ? { type } : null)
     .find(brand ? { brand } : null)
     .find(search ? { name: { $regex: search, $options: "i" } } : null)
-    .limit(10);
+    .limit(100);
 
   res.json({ products, count, maxPrice, minPrice });
 };
@@ -34,7 +37,7 @@ const getListProduct = async function (req, res, next) {
 const getProductById = async function (req, res, next) {
   const { id } = req.params;
 
-  const products = await Product.findById(id);
+  const products = await Product.findById(id, ["-createdAt", "-updatedAt"]);
 
   res.json(products);
 };
@@ -51,6 +54,22 @@ const addProduct = async function (req, res, next) {
   await newProduct.save();
 
   return res.status(200).json(newProduct);
+};
+//--------UPDATE------------------------------------------------------------
+
+const updateProduct = async function (req, res, next) {
+  const { path, filename } = req.file || {};
+  const { id } = req.params;
+
+  let img = req.body.img;
+
+  if (path) {
+    const { mediaLink } = await uploadFile(path, filename);
+    img = mediaLink;
+  }
+  const response = await Product.findByIdAndUpdate(id, { ...req.body, img });
+
+  return res.status(200).json(response);
 };
 
 //------------DELETE ALL---------------------------------------
@@ -69,5 +88,6 @@ module.exports = {
   getListProduct,
   getProductById,
   addProduct,
+  updateProduct,
   deleteProductsAll,
 };

@@ -12,6 +12,12 @@ const orderSchema = new mongoose.Schema(
       type: [{}],
       require: true,
     },
+
+    status: {
+      type: String,
+      enum: ["IDLE", "PENDING", "RESOLVED", "REJECTED"],
+      default: "IDLE",
+    },
   },
   { versionKey: false, timestamps: true }
 );

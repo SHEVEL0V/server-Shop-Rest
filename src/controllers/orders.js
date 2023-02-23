@@ -5,7 +5,7 @@ const Orders = require("../db/schema/orders");
 //-------------------------------------------------------------
 //----------GET------------------------------------------------
 const getOrder = async function (req, res, next) {
-  const data = await Orders.find().populate("user");
+  const data = await Orders.find(req?.query).populate("user");
 
   res.status(200).json(data);
 };
@@ -26,15 +26,15 @@ const addOrder = async function (req, res, next) {
 //-----------UPDATE--------------------------------------------
 
 const updateOrder = async function (req, res, next) {
-  const { id } = req.params;
-  const { status } = req.body;
-  console.log(req.body);
+  const { status, options } = req.body;
 
-  const response = await Orders.findByIdAndUpdate(id, { $set: { status } });
-
-  if (!response) {
+  if (!options || !status) {
     throw RequestError(404);
   }
+
+  const response = options.map(
+    async (id) => await Orders.findByIdAndUpdate(id, { $set: { status } })
+  );
 
   return res.status(200).json({ message: "Status update", response });
 };

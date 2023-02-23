@@ -74,14 +74,14 @@ const updateProduct = async function (req, res, next) {
 
 //------------DELETE ALL---------------------------------------
 const deleteProductsAll = async function (req, res, next) {
-  const response = req.body.remove.map(
+  const response = req.body.options.map(
     async (id) => await Product.findByIdAndDelete(id)
   );
 
   if (!response) {
     throw RequestError(404);
   }
-  return res.json({ message: "products deleted" });
+  return res.json({ message: "products deleted", response });
 };
 
 module.exports = {

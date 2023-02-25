@@ -29,7 +29,7 @@ const updateOrder = async function (req, res, next) {
   const { status, options } = req.body;
 
   if (!options || !status) {
-    throw RequestError(404);
+    throw RequestError(404, "Missing parameters ");
   }
 
   const response = options.map(
@@ -49,19 +49,6 @@ const updateOrder = async function (req, res, next) {
 //     throw RequestError(404);
 //   }
 //   return res.json({ message: "product deleted", response });
-// };
-
-// //-------------------------------------------------------------
-// //------------DELETE ALL---------------------------------------
-// const deleteBasketAll = async function (req, res, next) {
-//   const { id } = req.user;
-
-//   const response = await Basket.deleteMany({ user: id });
-
-//   if (!response) {
-//     throw RequestError(404);
-//   }
-//   return res.json({ message: "basket deleted", response });
 // };
 
 module.exports = {

@@ -11,6 +11,8 @@ const {
 } = require("../controllers/product");
 // const { addImage } = require("../controllers/image");
 
+const { getRatingById, addRating } = require("../controllers/rating");
+
 const { getOrder, addOrder, updateOrder } = require("../controllers/orders");
 const { registerUser, loginUser } = require("../controllers/user");
 
@@ -41,5 +43,9 @@ router.put("/order", authAdmin, wrap(updateOrder));
 //----------------------------------------------------------
 router.post("/user/auth", wrap(registerUser));
 router.post("/user/login", wrap(loginUser));
+
+//----------------------------------------------------------
+router.get("/rating", auth, wrap(getRatingById));
+router.post("/rating", auth, wrap(addRating));
 
 module.exports = router;

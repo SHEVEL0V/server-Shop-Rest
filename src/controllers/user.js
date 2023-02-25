@@ -39,7 +39,7 @@ const loginUser = async (req, res, next) => {
   const { _id: id, role } = user;
   const token = jwt.sign({ id, role }, process.env.JWT_SECRET);
 
-  return res.json({ token });
+  return res.json({ token, user });
 };
 
 module.exports = { registerUser, loginUser };

@@ -10,6 +10,7 @@ const productsSchema = new mongoose.Schema(
     type: { type: String, default: "" },
     brand: { type: String, required: true },
     desc: { type: String, default: "" },
+    options: {},
   },
   { versionKey: false, timestamps: true }
 );

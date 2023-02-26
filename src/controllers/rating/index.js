@@ -1,7 +1,7 @@
 /** @format */
 
-const Rating = require("../db/schema/rating");
-const Product = require("../db/schema/product");
+const Rating = require("../../db/schema/rating");
+const Product = require("../../db/schema/product");
 
 //--------ADD------------------------------------------------------------
 

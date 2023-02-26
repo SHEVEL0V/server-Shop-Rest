@@ -18,7 +18,6 @@ const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 
 const multer = require("../middleware/upload");
-
 const router = express.Router();
 
 //-------------PRODUCTS--------------------------------------------

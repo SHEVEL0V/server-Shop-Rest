@@ -8,6 +8,7 @@ const {
   addProduct,
   updateProduct,
   deleteProductsAll,
+  getProductOptions,
 } = require("../controllers/product/");
 const { addRating } = require("../controllers/rating");
 const { getOrder, addOrder, updateOrder } = require("../controllers/orders");
@@ -22,6 +23,7 @@ const router = express.Router();
 
 //-------------PRODUCTS--------------------------------------------
 router.get("/products", wrap(getListProduct));
+router.get("/products/options", wrap(getProductOptions));
 router.get("/products/:id", wrap(getProductById));
 router.post("/products", authAdmin, multer.single("img"), wrap(addProduct));
 router.put("/products/all", authAdmin, wrap(deleteProductsAll));

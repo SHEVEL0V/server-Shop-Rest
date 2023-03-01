@@ -2,29 +2,25 @@
 const Product = require("../../db/schema/product");
 
 const getListProduct = async function (req, res, next) {
-  const { limit = 10, page, price, type, brand, search } = req.query;
+  const { limit = 9, page = null, price = null, search = null } = req.query;
 
   const count = await Product.count();
 
-  const { price: maxPrice } = await Product.findOne().sort({ price: -1 });
-  const { price: minPrice } = await Product.findOne().sort({ price: 1 });
+  const brand = req.query.brand?.split("-") || null;
+  const type = req.query.type?.split("-") || null;
+  const min = Number(price?.split("-")[0]);
+  const max = Number(price?.split("-")[1]);
 
-  const min = Number(price?.split("-")[0]) || minPrice;
-  const max = Number(price?.split("-")[1]) || maxPrice;
+  console.log(type);
 
-  const products = await Product.find(
-    {
-      price: { $gte: min, $lte: max },
-    },
-    ["-createdAt", "-updatedAt "]
-  )
-    .find(type ? { type } : null)
-    .find(brand ? { brand } : null)
-    .find(search ? { name: { $regex: search, $options: "i" } } : null)
-    .limit(limit)
-    .skip(page ? limit * (page - 1) : null);
+  const products = await Product.find(type && { type: { $in: type } })
+    .find(brand && { brand: { $in: brand } })
+    .find(price && { price: { $gte: min, $lte: max } })
+    .find(search && { name: { $regex: search, $options: "i" } })
+    .skip(page && limit * (page - 1))
+    .limit(limit);
 
-  res.json({ products, count, maxPrice, minPrice });
+  res.json({ products, count });
 };
 
 module.exports = getListProduct;

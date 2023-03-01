@@ -1,15 +1,9 @@
 /** @format */
-
-const addProduct = require("./add");
-const deleteProductsAll = require("./delete");
-const getListProduct = require("./get");
-const getProductById = require("./getById");
-const updateProduct = require("./update");
-
 module.exports = {
-  getListProduct,
-  getProductById,
-  addProduct,
-  updateProduct,
-  deleteProductsAll,
+  addProduct: require("./add"),
+  deleteProductsAll: require("./delete"),
+  getListProduct: require("./get"),
+  getProductById: require("./getById"),
+  getProductOptions: require("./getOptions"),
+  updateProduct: require("./update"),
 };

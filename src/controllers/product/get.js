@@ -2,7 +2,7 @@
 const Product = require("../../db/schema/product");
 
 const getListProduct = async function (req, res, next) {
-  const { limit = 9, page = null, price = null, search = null } = req.query;
+  const { limit = 12, page = null, price = null, search = null } = req.query;
 
   const count = await Product.count();
 
@@ -10,8 +10,6 @@ const getListProduct = async function (req, res, next) {
   const type = req.query.type?.split("-") || null;
   const min = Number(price?.split("-")[0]);
   const max = Number(price?.split("-")[1]);
-
-  console.log(type);
 
   const products = await Product.find(type && { type: { $in: type } })
     .find(brand && { brand: { $in: brand } })

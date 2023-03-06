@@ -3,9 +3,12 @@
 const Orders = require("../../db/schema/orders");
 
 const getOrder = async function (req, res, next) {
-  const date = undefined;
-  const status = req?.query.status ? req?.query.status : undefined;
+  const { status, date = undefined } = req?.query;
+
+  const searchStatus = status ? { status } : undefined;
+
   const DATE = date?.split("-")?.map((e) => Number(e));
+
   const searchDate = DATE
     ? {
         createdAt: {
@@ -15,7 +18,9 @@ const getOrder = async function (req, res, next) {
       }
     : undefined;
 
-  const data = await Orders.find({ ...status, ...searchDate }).populate("user");
+  const data = await Orders.find({ ...searchStatus, ...searchDate }).populate(
+    "user"
+  );
 
   res.status(200).json(data);
 };

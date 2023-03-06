@@ -2,7 +2,7 @@
 const Product = require("../../db/schema/product");
 
 const getListProduct = async function (req, res, next) {
-  const { limit, page, type, price, search, brand } = req.query;
+  const { limit, page, type, price, search, brand, sort } = req.query;
 
   const query = () => {
     const findBrand = brand ? { brand: { $in: brand?.split("-") } } : undefined;
@@ -22,7 +22,23 @@ const getListProduct = async function (req, res, next) {
     return { ...findBrand, ...findType, ...findName, ...findPrice };
   };
 
+  const sortQuery = () => {
+    if (sort === "minPrice") {
+      return { price: 1 };
+    }
+    if (sort === "maxPrice") {
+      return { price: -1 };
+    }
+    if (sort === "newProduct") {
+      return { createdAt: 1 };
+    }
+    if (sort === "oldProduct") {
+      return { createdAt: -1 };
+    }
+  };
+
   const products = await Product.find(query())
+    .sort(sortQuery())
     .skip(page ? limit * (page - 1) : null)
     .limit(limit);
 

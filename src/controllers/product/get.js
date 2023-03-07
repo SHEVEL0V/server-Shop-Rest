@@ -23,17 +23,17 @@ const getListProduct = async function (req, res, next) {
   };
 
   const sortQuery = () => {
-    if (sort === "minPrice") {
+    if (sort === "min") {
       return { price: 1 };
     }
-    if (sort === "maxPrice") {
+    if (sort === "max") {
       return { price: -1 };
     }
-    if (sort === "newProduct") {
-      return { createdAt: 1 };
-    }
-    if (sort === "oldProduct") {
+    if (sort === "new") {
       return { createdAt: -1 };
+    }
+    if (sort === "old") {
+      return { createdAt: 1 };
     }
   };
 

@@ -10,7 +10,7 @@ const productsSchema = new mongoose.Schema(
     type: { type: String, default: "" },
     brand: { type: String, required: true },
     desc: { type: String, default: "" },
-    options: {},
+    options: { type: Array, default: [] },
   },
   { versionKey: false, timestamps: true }
 );

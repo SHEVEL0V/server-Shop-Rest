@@ -4,6 +4,7 @@ const { uploadFile } = require("../../upload");
 
 const addProduct = async function (req, res, next) {
   const { path, filename } = req.file;
+
   const options = JSON.parse(req.body.options);
 
   const { mediaLink } = await uploadFile(path, filename);

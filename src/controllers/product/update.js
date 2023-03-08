@@ -5,9 +5,7 @@ const { uploadFile } = require("../../upload");
 const updateProduct = async function (req, res, next) {
   const { path, filename } = req.file || {};
   const { id } = req.params;
-
   const options = JSON.parse(req.body.options);
-
   let img = req.body.img;
 
   if (path) {

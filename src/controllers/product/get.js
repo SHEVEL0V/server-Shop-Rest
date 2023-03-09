@@ -2,7 +2,7 @@
 const Product = require("../../db/schema/product");
 
 const getListProduct = async function (req, res, next) {
-  const { limit, page, type, price, search, brand, sort } = req.query;
+  const { limit = 12, page, type, price, search, brand, sort } = req.query;
 
   const query = () => {
     const findBrand = brand ? { brand: { $in: brand?.split("-") } } : undefined;

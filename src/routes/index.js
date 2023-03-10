@@ -12,7 +12,7 @@ const {
 } = require("../controllers/product/");
 const { addRating } = require("../controllers/rating");
 const { getOrder, addOrder, updateOrder } = require("../controllers/orders");
-const { registerUser, loginUser } = require("../controllers/user");
+const { registerUser, loginUser, loginGoogle } = require("../controllers/user");
 
 const wrap = require("../helpers/wrapper");
 const auth = require("../middleware/auth");
@@ -42,6 +42,7 @@ router.put("/order", authAdmin, wrap(updateOrder));
 //-------------USER---------------------------------------------
 router.post("/user/auth", wrap(registerUser));
 router.post("/user/login", wrap(loginUser));
+router.post("/user/login/google", wrap(loginGoogle));
 
 //-------------RATING--------------------------------------------
 router.post("/rating", auth, wrap(addRating));

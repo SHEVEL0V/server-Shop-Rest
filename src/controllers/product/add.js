@@ -1,6 +1,6 @@
 /** @format */
 const Product = require("../../db/schema/product");
-const { uploadFile } = require("../../upload");
+const { uploadFile } = require("../../services/upload");
 
 const addProduct = async function (req, res, next) {
   const { path, filename } = req.file;

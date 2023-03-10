@@ -1,10 +1,10 @@
 /** @format */
 const fs = require("fs/promises");
-const { authModel } = require("./auth");
+const { authModelCloud } = require("./auth");
 const { Storage } = require("@google-cloud/storage");
 
 const uploadFile = async (path, filename) => {
-  const jwt = await authModel();
+  const jwt = await authModelCloud();
   const bucketName = "buket-image";
   const storage = new Storage({ authClient: jwt });
   const options = { destination: filename };

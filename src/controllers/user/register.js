@@ -1,7 +1,6 @@
 /** @format */
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const makeResponseAuth = require("../../services/user/makeRes");
 const User = require("../../db/schema/user");
 
 //-------------------------------------------------------------
@@ -12,13 +11,10 @@ const registerUser = async (req, res, next) => {
 
   const passwordBcrypt = await bcrypt.hash(password, 10);
 
-  const newUser = new User({ ...req.body, password: passwordBcrypt });
+  const user = new User({ ...req.body, password: passwordBcrypt });
   await newUser.save();
 
-  const id = newUser._id;
-  const token = jwt.sign({ id }, process.env.JWT_SECRET);
-
-  return res.json({ token });
+  return res.json(makeResponseAuth(user));
 };
 
 module.exports = registerUser;

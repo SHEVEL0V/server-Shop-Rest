@@ -1,18 +1,12 @@
 /** @format */
 
-const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcrypt");
-
+const makeResponseAuth = require("../../services/user/makeRes");
 const User = require("../../db/schema/user");
 const RequestError = require("../../helpers/error");
-const { verifyToken } = require("../../services/auth");
+const verifyToken = require("../../services/verifyToken");
 
-const loginGoogle = async (req, res, next) => {
+const authGoogle = async (req, res, next) => {
   const { token } = req.body;
-
-  if (!token) {
-    throw RequestError(401, "No token provided");
-  }
 
   const decodeToken = await verifyToken(token);
 
@@ -31,11 +25,7 @@ const loginGoogle = async (req, res, next) => {
     user = await newUser.save();
   }
 
-  const { _id: id, role } = user;
-
-  const TOKEN = jwt.sign({ id, role }, process.env.JWT_SECRET);
-
-  return res.json({ user, token: TOKEN });
+  return res.json(makeResponseAuth(user));
 };
 
-module.exports = loginGoogle;
+module.exports = authGoogle;

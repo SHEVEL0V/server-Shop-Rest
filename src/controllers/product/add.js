@@ -1,4 +1,5 @@
 /** @format */
+const product = require(".");
 const Product = require("../../db/schema/product");
 const { uploadFile } = require("../../services/upload");
 
@@ -13,7 +14,10 @@ const addProduct = async function (req, res, next) {
 
   await newProduct.save();
 
-  return res.status(200).json("newProduct");
+  return res.json({
+    message: "Product added successfully",
+    product: newProduct,
+  });
 };
 
 module.exports = addProduct;

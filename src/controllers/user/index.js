@@ -1,7 +1,8 @@
 /** @format */
 
 module.exports = {
-  registerUser: require("./register"),
-  loginUser: require("./login"),
-  loginGoogle: require("./authGoogle"),
+  register: require("./register"),
+  login: require("./login"),
+  authGoogle: require("./authGoogle"),
+  update: require("./update"),
 };

@@ -38,8 +38,9 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    token: {
+    delivery: {
       type: String,
+      default: "none",
     },
   },
   { versionKey: false, timestamps: true }

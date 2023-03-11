@@ -1,9 +1,9 @@
 /** @format */
 module.exports = {
-  addProduct: require("./add"),
-  deleteProductsAll: require("./delete"),
-  getListProduct: require("./get"),
-  getProductById: require("./getById"),
-  getProductOptions: require("./getOptions"),
-  updateProduct: require("./update"),
+  add: require("./add"),
+  deleteAll: require("./delete"),
+  getList: require("./get"),
+  getById: require("./getById"),
+  getOptions: require("./getOptions"),
+  update: require("./update"),
 };

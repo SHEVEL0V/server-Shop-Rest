@@ -1,8 +1,7 @@
 /** @format */
 
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const makeResponseAuth = require("../../services/user/makeRes");
 const User = require("../../db/schema/user");
 const RequestError = require("../../helpers/error");
 
@@ -17,10 +16,7 @@ const loginUser = async (req, res, next) => {
     throw RequestError(401, `password:${password} is wrong  `);
   }
 
-  const { _id: id, role } = user;
-  const token = jwt.sign({ id, role }, process.env.JWT_SECRET);
-
-  return res.json({ token, user });
+  return res.json(makeResponseAuth(user));
 };
 
 module.exports = loginUser;

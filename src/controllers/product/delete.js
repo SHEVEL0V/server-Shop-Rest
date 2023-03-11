@@ -9,7 +9,7 @@ const deleteProductsAll = async function (req, res, next) {
   if (!response) {
     throw RequestError(404);
   }
-  return res.json({ message: "products deleted", response });
+  return res.json({ message: "Products remove", response });
 };
 
 module.exports = deleteProductsAll;

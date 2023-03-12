@@ -11,22 +11,22 @@ const updateUser = async function (req, res, next) {
 
   let avatarURL = body.picture;
 
-  // -----Upload avatar-----
+  // -----Upload avatar-----//
   if (path) {
     const { mediaLink } = await uploadFile(path, filename);
     avatarURL = mediaLink;
   }
 
-  // -----Password Validation-----
+  // -----Password hash-----//
   const password = body.password
     ? { password: await bcrypt.hash(body.password, 10) }
     : undefined;
 
-  // -----Update User -----
+  // -----Update User -----//
   await User.findByIdAndUpdate(id, {
     $set: { ...body, avatarURL, ...password },
   });
-  // -----Fin Update User -----
+  // -----Fin Update User -----//
   const user = await User.findById(id);
 
   return res.json(makeAuthRes(user));

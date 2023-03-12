@@ -9,8 +9,8 @@ const makeUser = require("../../services/user/makeUser");
 const authGoogle = async (req, res, next) => {
   const { token } = req.body;
 
-  //------Verify Token------//
-  const decodeToken = await verifyToken(token);
+  //------Verify and decode token------//
+  const { email } = await verifyToken(token);
 
   //------is user exist------//
   let user = await User.findOne({ email });

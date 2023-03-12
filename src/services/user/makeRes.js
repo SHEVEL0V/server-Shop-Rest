@@ -2,8 +2,10 @@
 
 const jwt = require("jsonwebtoken");
 
-const makeResponseAuth = (user) => {
+const makeAuthRes = (user) => {
   const { _id: id, role } = user;
+
+  //------CREATING JWT TOKEN------//
   const token = jwt.sign({ id, role }, process.env.JWT_SECRET);
 
   return {
@@ -19,4 +21,4 @@ const makeResponseAuth = (user) => {
   };
 };
 
-module.exports = makeResponseAuth;
+module.exports = makeAuthRes;

@@ -1,12 +1,10 @@
 /** @format */
 
 const express = require("express");
-
 const product = require("../controllers/product/");
 const { addRating } = require("../controllers/rating");
 const order = require("../controllers/orders");
 const user = require("../controllers/user");
-
 const wrap = require("../helpers/wrapper");
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");

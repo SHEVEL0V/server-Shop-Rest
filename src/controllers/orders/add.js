@@ -6,6 +6,7 @@ const addOrder = async function (req, res, next) {
   const { id } = req.user;
   const { orders } = req.body;
 
+  //---------add order to database------------------------//
   const newProduct = new Orders({ orders, user: id });
 
   await newProduct.save();

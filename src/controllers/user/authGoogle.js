@@ -1,31 +1,26 @@
 /** @format */
 
-const makeResponseAuth = require("../../services/user/makeRes");
+const makeAuthRes = require("../../services/user/makeRes");
 const User = require("../../db/schema/user");
 const RequestError = require("../../helpers/error");
 const verifyToken = require("../../services/verifyToken");
+const makeUser = require("../../services/user/makeUser");
 
 const authGoogle = async (req, res, next) => {
   const { token } = req.body;
 
+  //------Verify Token------//
   const decodeToken = await verifyToken(token);
 
-  const { email, name, email_verified, jti, picture } = decodeToken;
-
+  //------is user exist------//
   let user = await User.findOne({ email });
 
+  //------Making the user if it doesn't exist-----//
   if (!user) {
-    const newUser = new User({
-      name,
-      password: jti,
-      avatarURL: picture,
-      email,
-      verify: email_verified,
-    });
-    user = await newUser.save();
+    user = await makeUser();
   }
 
-  return res.json(makeResponseAuth(user));
+  return res.json(makeAuthRes(user));
 };
 
 module.exports = authGoogle;

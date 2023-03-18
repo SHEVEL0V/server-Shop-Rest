@@ -1,6 +1,6 @@
 /** @format */
 
-const sortOptions = (sort) => {
+const sortParams = (sort) => {
   if (sort === "min") {
     return { price: 1 };
   }
@@ -15,4 +15,4 @@ const sortOptions = (sort) => {
   }
 };
 
-module.exports = sortOptions;
+module.exports = sortParams;

@@ -4,6 +4,5 @@ module.exports = {
   deleteAll: require("./delete"),
   getList: require("./get"),
   getById: require("./getById"),
-  getOptions: require("./getOptions"),
   update: require("./update"),
 };

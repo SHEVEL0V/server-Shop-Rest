@@ -1,5 +1,4 @@
 /** @format */
-const product = require(".");
 const Product = require("../../db/schema/product");
 const { uploadFile } = require("../../services/upload");
 
@@ -8,10 +7,8 @@ const addProduct = async function (req, res, next) {
 
   //------parse options to json------//
   const options = JSON.parse(req.body.options);
-
   //---------upload file to google cloud storage---------//
   const { mediaLink } = await uploadFile(path, filename);
-
   //-----create new product-----//
   const newProduct = new Product({ ...req.body, img: mediaLink, options });
 

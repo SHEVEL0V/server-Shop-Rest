@@ -14,14 +14,17 @@ const searchParams = (params) => {
         $gte: Number(params[key]?.split("-")[0]),
         $lte: Number(params[key]?.split("-")[1]),
       };
+      return;
     }
-    if (key === "name") {
+    if (key === "search") {
       //--------add name to search params----------------------------------------------------------------
-      res[key] = { $regex: params[key], $options: "i" };
+      res.name = { $regex: params[key], $options: "i" };
+      return;
     }
     if (key === "type" || key === "brand") {
       //-------- add type || brand to search params -----------------------------------------------------
       res[key] = { $in: params[key]?.split("-") };
+      return;
     } else {
       //-------- add params to search params-------------------------------------------------------------
       res.params = {

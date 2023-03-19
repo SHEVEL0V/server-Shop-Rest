@@ -14,7 +14,7 @@ const router = express.Router();
 
 //-------------PRODUCTS--------------------------------------------
 router.get("/products", wrap(product.getList));
-router.get("/products/options", wrap(product.getOptions));
+router.get("/products/desc", wrap(product.getDesc));
 router.get("/products/:id", wrap(product.getById));
 router.post("/products", authAdmin, multer.single("img"), wrap(product.add));
 router.put("/products/all", authAdmin, wrap(product.deleteAll));

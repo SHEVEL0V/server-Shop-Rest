@@ -2,6 +2,7 @@
 const fs = require("fs/promises");
 const { authModelCloud } = require("./auth");
 const { Storage } = require("@google-cloud/storage");
+const RequestError = require("../helpers/error");
 
 const uploadFile = async (path, filename) => {
   const jwt = await authModelCloud();

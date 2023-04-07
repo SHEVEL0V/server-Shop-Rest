@@ -26,4 +26,4 @@ const params = (products) => {
   }));
 };
 
-export const filter = { types, params, brands };
+module.exports = filter = { types, params, brands };

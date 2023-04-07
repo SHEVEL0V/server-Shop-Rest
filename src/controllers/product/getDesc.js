@@ -13,9 +13,9 @@ const getProductsDesc = async function (req, res, next) {
 
   res.json({
     price: [min, max],
-    type: filter.filterTypes(products),
-    brand: filter.filterBrands(products),
-    params: filter.filterParams(products),
+    type: filter.types(products),
+    brand: filter.brands(products),
+    params: filter.params(products),
   });
 };
 

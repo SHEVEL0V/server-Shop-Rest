@@ -1,14 +1,14 @@
 /** @format */
 
-const filterTypes = (data) => {
+const types = (data) => {
   return [...new Set(data.map((item) => item.type))];
 };
 
-const filterBrands = (data) => {
+const brands = (data) => {
   return [...new Set(data.map((item) => item.brand))];
 };
 
-const filterParams = (products) => {
+const params = (products) => {
   const options = {};
   products.map((product) => {
     product.params.map(({ name, value }) => {
@@ -20,7 +20,10 @@ const filterParams = (products) => {
     });
   });
 
-  return options;
+  return Object.keys(options).map((key) => ({
+    name: key,
+    value: options[key],
+  }));
 };
 
-module.exports = { filterTypes, filterParams, filterBrands };
+export const filter = { types, params, brands };

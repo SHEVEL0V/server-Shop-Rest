@@ -6,8 +6,13 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
 const indexRouter = require("./routes");
 const app = express();
+const fs = require("fs");
+const YAML = require("yaml");
+const file = fs.readFileSync("openapi.yaml", "utf8");
+const swaggerDocument = YAML.parse(file);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/shop", indexRouter);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,0 +1,285 @@
+openapi: 3.0.3
+info:
+  title: Server rest online Store 1.0
+
+  
+  contact:
+    email: ashevelevmti@gmail.com
+  version: 1.0.01
+servers:
+  - url: https://shop-server-rest.onrender.com/shop/
+  
+
+
+paths:
+  /products/desc:
+    get:
+      tags:
+        - Product
+     
+      summary: Get products descriptions
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/desc'
+                  
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+  /products:
+    get:
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: query
+          schema:
+            $ref: '#/components/schemas/GetQuery' 
+     
+      summary: Get products by options
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+    post:
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: product
+          schema:
+            $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'
+    put:
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: product
+          schema:
+            $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'  
+  /products/all:  
+    put:
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: product
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'          
+  /products/{userId}:
+    get:
+      tags:
+        - Product
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+  /user/login:
+    post:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: object
+            properties:
+              login:
+                type: string
+              password:
+                type: string
+     
+      summary: login user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '401':
+          description: not autorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+components:
+  schemas:
+    GetQuery:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+          example: 10
+        page:
+          type: integer
+          format: int64
+          example: 1
+        sort:
+          type: string
+          example: min , max , old , new
+        price:
+          type: string
+          example: 100-20000
+        search:
+          type: string
+          example: apple
+        any-param:
+          type: string
+          example: ram
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: 12345
+        phone:
+          type: string
+          example: 09894444444
+        delivery:
+          type: string
+          example: np-1
+    Product:
+      type: object
+      properties:
+        name: 
+         type: string
+        price: 
+          type: number 
+        rating: 
+          type: number
+        img: 
+          type: string
+        type: 
+          type: string
+        brand: 
+          type: string
+        desc: 
+          type: string
+        params: 
+          type: array
+          items:
+            type: object
+            properties:
+              name: 
+                type: string
+              value: 
+                type: string
+    desc:
+     type: object
+     properties:
+        brands:
+          type: array
+          items:
+            type: string
+        type:
+          type: array
+          items:
+            type: string 
+        price:
+          type: array
+          items:
+            type: number
+            example: [10,2000]
+        params:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: string  
+    bad-response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Error
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

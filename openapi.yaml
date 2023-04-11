@@ -177,6 +177,238 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/bad-response' 
+  /user/login/google:
+    post:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: token
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+      summary: Auth user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '401':
+          description: not autorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'
+  /user/auth:
+    post:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              login:
+                type: string
+              password:
+                type: string
+              phone:
+                type: string
+      summary: Register user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '401':
+          description: not autorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+  /user/update:
+    put:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              login:
+                type: string
+              password:
+                type: string
+              phone:
+                type: string
+              delivery:
+                type: string
+              img:
+                type: string
+              file: 
+                type: object
+      summary: Register user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+  /user/rating:
+    post:
+      tags:
+        - Rating
+      parameters:
+        - in: query
+          name: rating
+          schema:
+            type: object
+            properties:
+              rate:
+                type: integer
+                example: 2
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 rate:
+                    type: integer
+                      
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'  
+  /user/order:
+    get:
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+              status:
+                type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: integer
+                    user:
+                      $ref: '#/components/schemas/User'
+                    order:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Product' 
+                      
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response' 
+    post:
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: order
+          schema:
+            type: object
+            properties:
+              orders:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product' 
+          
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successful
+                
+                      
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'   
+    put:
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: options
+          schema:
+            type: object
+            properties:
+              options:
+                type: array
+                items:
+                  type: integer
+                  example: id
+              status:
+                type: string
+                example: pending
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successful
+        '400':
+          description: bad response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-response'                 
 components:
   schemas:
     GetQuery:
@@ -192,16 +424,14 @@ components:
           example: 1
         sort:
           type: string
-          example: min , max , old , new
+          example: min 
         price:
           type: string
           example: 100-20000
         search:
           type: string
-          example: apple
-        any-param:
-          type: string
-          example: ram
+          example: iphone
+ 
     User:
       type: object
       properties:
@@ -211,7 +441,7 @@ components:
           example: 10
         username:
           type: string
-          example: theUser
+          example: Bob
         email:
           type: string
           example: john@email.com

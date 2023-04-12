@@ -11,7 +11,7 @@ const indexRouter = require("./routes");
 const app = express();
 const fs = require("fs");
 const YAML = require("yaml");
-const file = fs.readFileSync("openapi.yaml", "utf8");
+const file = fs.readFileSync("documentsApi.yaml", "utf8");
 const swaggerDocument = YAML.parse(file);
 
 // view engine setup

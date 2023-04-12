@@ -1,37 +1,36 @@
+# @format
+
 openapi: 3.0.3
 info:
   title: Server rest online Store 1.0
 
-  
   contact:
     email: ashevelevmti@gmail.com
   version: 1.0.01
 servers:
   - url: https://shop-server-rest.onrender.com/shop/
-  
-
 
 paths:
   /products/desc:
     get:
       tags:
         - Product
-     
+
       summary: Get products descriptions
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/desc'
-                  
-        '400':
+                $ref: "#/components/schemas/desc"
+
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
   /products:
     get:
       tags:
@@ -40,22 +39,22 @@ paths:
         - in: query
           name: query
           schema:
-            $ref: '#/components/schemas/GetQuery' 
-     
+            $ref: "#/components/schemas/GetQuery"
+
       summary: Get products by options
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'          
-        '400':
+                $ref: "#/components/schemas/Product"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
     post:
       tags:
         - Product
@@ -63,20 +62,20 @@ paths:
         - in: query
           name: product
           schema:
-            $ref: '#/components/schemas/Product'
+            $ref: "#/components/schemas/Product"
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'          
-        '400':
+                $ref: "#/components/schemas/Product"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'
+                $ref: "#/components/schemas/bad-response"
     put:
       tags:
         - Product
@@ -84,45 +83,45 @@ paths:
         - in: query
           name: product
           schema:
-            $ref: '#/components/schemas/Product'
+            $ref: "#/components/schemas/Product"
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'          
-        '400':
+                $ref: "#/components/schemas/Product"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'  
-  /products/all:  
+                $ref: "#/components/schemas/bad-response"
+  /products/all:
     put:
       tags:
         - Product
       parameters:
         - in: query
-          name: product
+          name: delete
           schema:
             type: array
             items:
               type: integer
               format: int64
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'          
-        '400':
+                $ref: "#/components/schemas/Product"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'          
+                $ref: "#/components/schemas/bad-response"
   /products/{userId}:
     get:
       tags:
@@ -136,18 +135,18 @@ paths:
           required: true
           description: Numeric ID of the user to get
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'          
-        '400':
+                $ref: "#/components/schemas/Product"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
   /user/login:
     post:
       tags:
@@ -162,21 +161,21 @@ paths:
                 type: string
               password:
                 type: string
-     
+
       summary: login user
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
-        '401':
+                $ref: "#/components/schemas/User"
+        "401":
           description: not autorize
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
   /user/login/google:
     post:
       tags:
@@ -191,18 +190,18 @@ paths:
                 type: string
       summary: Auth user
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
-        '401':
+                $ref: "#/components/schemas/User"
+        "401":
           description: not autorize
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'
+                $ref: "#/components/schemas/bad-response"
   /user/auth:
     post:
       tags:
@@ -223,18 +222,18 @@ paths:
                 type: string
       summary: Register user
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
-        '401':
+                $ref: "#/components/schemas/User"
+        "401":
           description: not autorize
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
   /user/update:
     put:
       tags:
@@ -257,22 +256,22 @@ paths:
                 type: string
               img:
                 type: string
-              file: 
+              file:
                 type: object
       summary: Register user
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
   /user/rating:
     post:
       tags:
@@ -286,23 +285,25 @@ paths:
               rate:
                 type: integer
                 example: 2
+              itemId:
+                type: string
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                 rate:
+                  rate:
                     type: integer
-                      
-        '400':
+
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'  
+                $ref: "#/components/schemas/bad-response"
   /user/order:
     get:
       tags:
@@ -318,7 +319,7 @@ paths:
               status:
                 type: string
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
@@ -330,18 +331,18 @@ paths:
                     _id:
                       type: integer
                     user:
-                      $ref: '#/components/schemas/User'
+                      $ref: "#/components/schemas/User"
                     order:
                       type: array
                       items:
-                        $ref: '#/components/schemas/Product' 
-                      
-        '400':
+                        $ref: "#/components/schemas/Product"
+
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response' 
+                $ref: "#/components/schemas/bad-response"
     post:
       tags:
         - Orders
@@ -354,10 +355,10 @@ paths:
               orders:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product' 
-          
+                  $ref: "#/components/schemas/Product"
+
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
@@ -367,14 +368,13 @@ paths:
                   message:
                     type: string
                     example: Successful
-                
-                      
-        '400':
+
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'   
+                $ref: "#/components/schemas/bad-response"
     put:
       tags:
         - Orders
@@ -393,7 +393,7 @@ paths:
                 type: string
                 example: pending
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
@@ -403,12 +403,12 @@ paths:
                   message:
                     type: string
                     example: Successful
-        '400':
+        "400":
           description: bad response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/bad-response'                 
+                $ref: "#/components/schemas/bad-response"
 components:
   schemas:
     GetQuery:
@@ -424,14 +424,24 @@ components:
           example: 1
         sort:
           type: string
-          example: min 
+          example: min
         price:
           type: string
-          example: 100-20000
+          example: 1000-100000
         search:
           type: string
           example: iphone
- 
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: camera
+              value:
+                type: string
+                example: 3x
     User:
       type: object
       properties:
@@ -457,52 +467,52 @@ components:
     Product:
       type: object
       properties:
-        name: 
-         type: string
-        price: 
-          type: number 
-        rating: 
+        name:
+          type: string
+        price:
           type: number
-        img: 
+        rating:
+          type: number
+        img:
           type: string
-        type: 
+        type:
           type: string
-        brand: 
+        brand:
           type: string
-        desc: 
+        desc:
           type: string
-        params: 
+        params:
           type: array
           items:
             type: object
             properties:
-              name: 
+              name:
                 type: string
-              value: 
+              value:
                 type: string
     desc:
-     type: object
-     properties:
+      type: object
+      properties:
         brands:
           type: array
           items:
             type: string
-        type:
+        types:
           type: array
           items:
-            type: string 
+            type: string
         price:
           type: array
           items:
             type: number
-            example: [10,2000]
+            example: [10, 2000]
         params:
           type: object
           properties:
             name:
               type: string
             value:
-              type: string  
+              type: string
     bad-response:
       type: object
       properties:

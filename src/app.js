@@ -1,11 +1,11 @@
 /** @format */
-require("dotenv").config();
-const createError = require("http-errors");
-const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+require("dotenv").config();
+const createError = require("http-errors");
+const path = require("path");
 const swaggerUi = require("swagger-ui-express");
 const indexRouter = require("./routes");
 const app = express();
@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/", (req, res) => res.render("start"));
 app.use("/shop", indexRouter);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

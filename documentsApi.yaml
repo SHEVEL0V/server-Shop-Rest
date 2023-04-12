@@ -15,7 +15,6 @@ paths:
     get:
       tags:
         - Product
-
       summary: Get products descriptions
       responses:
         "200":
@@ -35,13 +34,12 @@ paths:
     get:
       tags:
         - Product
+      summary: Get products by options
       parameters:
         - in: query
           name: query
           schema:
             $ref: "#/components/schemas/GetQuery"
-
-      summary: Get products by options
       responses:
         "200":
           description: Successful operation
@@ -58,6 +56,7 @@ paths:
     post:
       tags:
         - Product
+      summary: Add product
       parameters:
         - in: query
           name: product
@@ -79,6 +78,7 @@ paths:
     put:
       tags:
         - Product
+      summary: Update product
       parameters:
         - in: query
           name: product
@@ -101,6 +101,7 @@ paths:
     put:
       tags:
         - Product
+      summary: Delete  products
       parameters:
         - in: query
           name: delete
@@ -151,6 +152,7 @@ paths:
     post:
       tags:
         - User
+      summary: Login user
       parameters:
         - in: query
           name: query
@@ -161,8 +163,6 @@ paths:
                 type: string
               password:
                 type: string
-
-      summary: login user
       responses:
         "200":
           description: Successful operation
@@ -180,6 +180,7 @@ paths:
     post:
       tags:
         - User
+      summary: Authentication user by google
       parameters:
         - in: query
           name: token
@@ -188,7 +189,6 @@ paths:
             properties:
               token:
                 type: string
-      summary: Auth user
       responses:
         "200":
           description: Successful operation
@@ -206,6 +206,7 @@ paths:
     post:
       tags:
         - User
+      summary: Register user
       parameters:
         - in: query
           name: query
@@ -220,7 +221,6 @@ paths:
                 type: string
               phone:
                 type: string
-      summary: Register user
       responses:
         "200":
           description: Successful operation
@@ -238,6 +238,7 @@ paths:
     put:
       tags:
         - User
+      summary: Update user profile
       parameters:
         - in: query
           name: query
@@ -258,7 +259,6 @@ paths:
                 type: string
               file:
                 type: object
-      summary: Register user
       responses:
         "200":
           description: Successful operation
@@ -276,6 +276,7 @@ paths:
     post:
       tags:
         - Rating
+      summary: Updates the rating
       parameters:
         - in: query
           name: rating
@@ -308,6 +309,7 @@ paths:
     get:
       tags:
         - Orders
+      summary: Get orders
       parameters:
         - in: query
           name: query
@@ -346,6 +348,7 @@ paths:
     post:
       tags:
         - Orders
+      summary: Add orders
       parameters:
         - in: query
           name: order
@@ -378,6 +381,7 @@ paths:
     put:
       tags:
         - Orders
+      summary: Update order status
       parameters:
         - in: query
           name: options

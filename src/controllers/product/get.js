@@ -6,7 +6,7 @@ const filter = require("../../services/products/filter");
 
 const getListProduct = async function (req, res, next) {
   const { query } = req;
-  const { limit = 12, page, sort } = req.query;
+  const { limit = 6, page, sort } = req.query;
 
   const results = await Product
     //----------find product and sort and skip and limit ----------//
